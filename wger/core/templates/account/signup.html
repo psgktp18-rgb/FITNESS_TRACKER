@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras crispy_forms_tags %}
+
+{% block title %}{% translate "Register" %}{% endblock %}
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="card p-4 p-md-5 shadow-md border-0 rounded-4">
+        <div class="text-center mb-4">
+            <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 48px; height: 48px;" class="rounded-3 shadow-sm mb-2" alt="HEALTHYFY TRACKER">
+            <h3 class="fw-bold mb-1 auth-card-title">{% translate "Create an account" %}</h3>
+            <p class="small mb-0 auth-card-subtitle">{% translate "Join HEALTHYFY TRACKER and start reaching your fitness goals" %}</p>
+        </div>
+        <form method="post" action="{% url 'core:user:registration' %}" data-disable-on-submit>
+            {% csrf_token %}
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}">
+            {% endif %}
+            {% crispy form %}
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block sidebar %}
+    {% if user.is_anonymous %}
+        <h4>{% translate "Already have an account?" %}</h4>
+        <p>
+            <a href="{% url 'core:user:login' %}">
+                <span class="{% fa_class 'sign-in-alt' %}"></span>
+                {% translate "Login" %}
+            </a>
+        </p>
+    {% endif %}
+{% endblock %}

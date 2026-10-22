@@ -1,0 +1,117 @@
+{% extends "template_features.html" %}
+{% load i18n static wger_extras crispy_forms_tags %}
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+    <meta property="og:title" content="{% translate 'Features' %} - HEALTHYFY TRACKER">
+    <meta property="og:description"
+          content="{% blocktranslate %}HEALTHYFY TRACKER is a comprehensive application that manages your exercises and workouts.{% endblocktranslate %}">
+{% endblock %}
+
+{% block opengraphimages %}
+    <meta property="og:image" content="{% static 'images/logos/logo.png' %}">
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block template %}
+
+    <!-- header -->
+    <header class="pb-5 landing-header" style="background: linear-gradient(180deg, #F8FAFC 0%, #EEF2F6 100%); min-height: 100vh;">
+        <!-- navbar -->
+        <nav class="navbar navbar-expand px-4 py-3 shadow-md mb-4" style="background: linear-gradient(135deg, #1E3A6E 0%, #0F2347 100%) !important;">
+            <div class="container-xl d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-flex align-items-center text-decoration-none" href="{% url 'core:index' %}">
+                    <img src="{% static 'images/logos/logo-bg-white.png' %}" style="width: 38px; height: 38px;" class="rounded me-2 shadow-sm" alt="HEALTHYFY TRACKER logo"/>
+                    <span class="fs-3 fw-bold tracking-wide mb-0" style="font-family: 'Poppins', sans-serif; letter-spacing: 0.5px;">
+                        <span class="brand-healthyfy" style="color: #FFFFFF !important; font-weight: 800;">HEALTHYFY</span> <span class="brand-tracker" style="color: #2DD4BF !important; font-weight: 800;">TRACKER</span>
+                    </span>
+                </a>
+
+                <div class="d-flex gap-3 align-items-center">
+                    {% if not user.is_authenticated %}
+                        <a role="button" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold"
+                           href="{% url 'core:user:login' %}">
+                            {% translate "Login" %}
+                        </a>
+                        {% if allow_registration %}
+                            <a role="button" class="btn rounded-pill px-4 py-2 fw-bold text-white shadow-sm"
+                               style="background: #14B8A6 !important; border: none;"
+                               href="{% url 'core:user:registration' %}">
+                                {% translate "Register" %}
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a role="button" class="btn rounded-pill px-4 py-2 fw-bold text-white shadow-sm"
+                           style="background: #14B8A6 !important; border: none;"
+                           href="{% url 'core:index' %}">
+                            {% translate "Dashboard" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-xl">
+            <!-- hero section -->
+            <section
+                class="row px-3 my-5 d-flex align-items-center justify-content-center gap-4 flex-row-reverse">
+                <div class="col-lg-6 col-sm-6 col-12 d-flex px-4 flex-column align-items-center">
+                    <picture>
+                        <source srcset="{% static 'images/hero.avif' %}" type="image/avif">
+                        <img src="{% static 'images/hero.png' %}"
+                             alt="a man with a dumbbell"
+                             class="header-hero-image img-fluid"
+                             style="filter: drop-shadow(0 20px 30px rgba(30, 58, 110, 0.18)); max-height: 480px;">
+                    </picture>
+                </div>
+                <div class="col-lg-5 col-sm-6 col-11 d-flex py-3 flex-column align-items-start">
+                    <h1 class="font-bebas-neue display-3 uppercase mb-3" style="line-height: 1.05; letter-spacing: 1px;">
+                        <span style="color: #1E3A6E !important;">TRACK YOUR WAY TO YOUR</span><br>
+                        <span style="color: #0D9488 !important; text-shadow: 0 2px 10px rgba(13, 148, 136, 0.15);">IDEAL BODY</span>
+                    </h1>
+                    <p class="lead mb-4" style="color: #475569 !important; font-size: 1.2rem; font-weight: 400;">
+                        {% translate "Join" %} <b style="color: #1E3A6E;">HEALTHYFY TRACKER</b>, {% translate "your ultimate fitness and workout companion" %}
+                    </p>
+
+                    <a role="button"
+                       class="btn py-3 px-5 fs-5 fw-bold text-white shadow-md rounded-pill"
+                       style="background: linear-gradient(135deg, #1E3A6E 0%, #0D9488 100%) !important; border: none;"
+                       href="{% if user.is_authenticated %}
+                                {% url 'core:index' %}
+                            {% else %}
+                                {% url 'core:user:registration' %}
+                            {% endif %}">
+                        {% translate "Get Started" %}
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- board section -->
+            <section class="row py-4 px-3 mx-1 bg-white rounded-4 shadow-md border align-items-center mt-5" style="border-color: #E2E8F0 !important;">
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center border-end-md py-3">
+                    <h2 class="display-3 font-bebas-neue mb-0" style="color: #0D9488 !important; font-weight: 700;">{{ nr_users }}+</h2>
+                    <p class="text-center mb-0 text-uppercase fw-semibold" style="color: #64748B !important; font-size: 0.85rem; letter-spacing: 0.5px;">{% translate "people <br> using HEALTHYFY TRACKER" %}</p>
+                </div>
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center border-end-md py-3">
+                    <h2 class="display-3 font-bebas-neue mb-0" style="color: #0D9488 !important; font-weight: 700;">{{ nr_exercises }}+</h2>
+                    <p class="text-center mb-0 text-uppercase fw-semibold" style="color: #64748B !important; font-size: 0.85rem; letter-spacing: 0.5px;">{% translate "exercises <br> for workout creation" %}</p>
+                </div>
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center border-end-md py-3">
+                    <h2 class="display-3 font-bebas-neue mb-0" style="color: #0D9488 !important; font-weight: 700;">{{ nr_ingredients }}+</h2>
+                    <p class="text-center mb-0 text-uppercase fw-semibold" style="color: #64748B !important; font-size: 0.85rem; letter-spacing: 0.5px;">{% translate "foods <br> for meal planning" %}</p>
+                </div>
+                <div class="col-6 col-md-3 d-flex flex-column align-items-center py-3">
+                    <h2 class="display-3 font-bebas-neue mb-0" style="color: #0D9488 !important; font-weight: 700;">10,000+</h2>
+                    <p class="text-center mb-0 text-uppercase fw-semibold" style="color: #64748B !important; font-size: 0.85rem; letter-spacing: 0.5px;">{% translate "workouts logged <br> by active users" %}</p>
+                </div>
+            </section>
+        </div>
+    </header>
+{% endblock %}

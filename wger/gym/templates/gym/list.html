@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% load wger_extras %}
+
+{% block title %}{% translate "Gym list" %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="card shadow-sm border-0">
+        <ul class="list-group list-group-flush">
+            {% for gym in gym_list %}
+                <li class="list-group-item list-group-item-action d-flex align-items-center justify-content-between p-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="{% fa_class 'building' %} text-muted fs-5"></span>
+                        <a href="{% url 'gym:gym:user-list' gym.pk %}" class="fw-semibold text-dark">{{ gym }}</a>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light border dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                            <span class="{% fa_class 'cog' %}"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" role="menu">
+                            {% translate 'Edit' as text %}
+                            {% url 'gym:gym:edit' gym.id as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
+
+                            {% translate 'Delete' as text %}
+                            {% url 'gym:gym:delete' gym.id as url %}
+                            {% modal_link url=url text=text css_class='dropdown-item' %}
+                        </div>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item p-4 text-center text-muted">
+                    <span class="{% fa_class 'building' %} fs-2 d-block mb-2 text-muted opacity-50"></span>
+                    {% translate "Nothing found" %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+
+{% block sidebar %}
+    <div class="card shadow-sm border-0 mb-4 p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">{% translate "Global gym configuration" %}</h5>
+            {% if perms.config.change_gymconfig %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-light border dropdown-toggle btn-sm" data-bs-toggle="dropdown">
+                        {% translate "Actions" %} <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" role="menu">
+                        {% translate 'Edit' as text %}
+                        {% modal_link url='config:gym_config:edit' text=text css_class='dropdown-item' %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <table class="table mb-0">
+            <tr>
+                <th class="border-0 text-muted">{% translate "Default gym" %}</th>
+                <td class="border-0 fw-semibold">{{ global_gym_config.default_gym|default:"-/-" }}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% if perms.gym.add_gym %}
+    {% translate 'Add new gym' as text %}
+    {% modal_link url='gym:gym:add' text=text  %}
+{% endif %}
+{% endblock %}

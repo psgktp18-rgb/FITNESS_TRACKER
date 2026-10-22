@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+    This file is part of wger Workout Manager
+
+    wger is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    wger is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+{% load i18n static wger_extras django_bootstrap_breadcrumbs %}
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+{% endblock %}
+<html lang="{{ language.short_name }}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-language" content="{{ i18n_language.code }}">
+    <meta charset="utf-8">
+    <meta name="author" content="Vishaal - HEALTHYFY TRACKER">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+    <!-- OpenGraph -->
+    {% block opengraph %}
+        <meta property="og:url" content="{{ request_absolute_path }}">
+        <meta property="og:type" content="website">
+    {% endblock %}
+    {% block opengraphimages %}
+        <meta property="og:image" content="{{ image_absolute_path }}">
+    {% endblock %}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/workout-manager.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-compiled.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesomefree/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'node/@wger-project/react-components/build/assets/index.css' %}" id="react-css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/language-menu.css' %}">
+    <!-- MUST be last: our overrides need to beat React component CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-custom.css' %}">
+
+    <script src="{% static 'node/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'node/htmx.org/dist/htmx.min.js' %}"></script>
+    <script src="{% static 'js/nutrition.js' %}"></script>
+    <script src="{% static 'js/language.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    <script>window.WGER_I18N_PATHS = {% react_translation_paths %};</script>
+    <script src="{% static 'node/@wger-project/react-components/build/main.js' %}" type="module" defer="defer"></script>
+
+    {% block header %}{% endblock %}
+
+    <title>{% block title %}{% endblock %} | HEALTHYFY TRACKER</title>
+</head>
+<body>
+
+{#            #}
+{# Navigation #}
+{#            #}
+{% include 'navigation.html' %}
+
+
+{#              #}
+{# Main content #}
+{#              #}
+<div id="main">
+    <div class="container pt-2">
+        <div class="modal fade" id="wger-ajax-info" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="ajax-info-content">
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal">
+                            {% translate "Close" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="current-url" data-current-url="{{ request_full_path }}"></div>
+        <div id="current-language" data-current-language="{{ i18n_language.code }}"></div>
+
+
+        {#             #}
+        {# Guest users #}
+        {#             #}
+        {# {% if not user.is_authenticated or user.userprofile.is_temporary %} #}
+        {% if user.is_authenticated and user.userprofile.is_temporary %}
+            <div class="alert alert-warning text-center" role="alert">
+                {% translate "You are using a guest account, data entered will be deleted after a week." %}
+                {% if not has_demo_data %}
+                    <br>
+                    <a href="{% url 'core:user:demo-entries' %}" rel="nofollow"
+                       class="btn btn-link btn-sm">
+                        {% translate "Create some demo entries" %}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                {% else %}
+                    <br>
+                    <a href="{% url 'core:user:registration' %}" class="btn btn-link btn-sm">
+                        {% translate "Register" %}
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% block template %}{% endblock %}
+    </div>
+</div>
+
+
+
+
+{% block extra_body %}{% endblock %}
+
+</body>
+</html>

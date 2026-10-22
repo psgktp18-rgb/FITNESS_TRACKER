@@ -1,0 +1,984 @@
+/*
+    This file is part of HEALTHYFY TRACKER (formerly Workout Manager)
+
+    Workout Manager is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Workout Manager is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with Workout Manager. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/**************************************************************
+ * HEALTHYFY TRACKER Design System Tokens & Base Styles
+ **************************************************************/
+
+:root {
+    /* Brand Colors */
+    --ht-primary: #1E3A6E;
+    --ht-primary-hover: #162C54;
+    --ht-primary-light: #2A4D8E;
+    --ht-accent: #14B8A6;
+    --ht-accent-hover: #0D9488;
+    --ht-accent-subtle: #CCFBF1;
+    --ht-accent-light: #F0FDFA;
+    --ht-warning: #F97316;
+    --ht-danger: #EF4444;
+    --ht-success: #10B981;
+    --ht-info: #0284C7;
+
+    /* Neutrals (Light Mode Defaults) */
+    --ht-bg: #F4F6FA;
+    --ht-card-bg: #FFFFFF;
+    --ht-card-border: #E2E8F0;
+    --ht-text: #0F172A;
+    --ht-text-muted: #475569;
+    --ht-input-border: #CBD5E1;
+    --ht-input-bg: #FFFFFF;
+    --ht-input-text: #0F172A;
+    --ht-input-focus-ring: rgba(20, 184, 166, 0.25);
+    --ht-link: #1E3A6E;
+    --ht-link-hover: #0D9488;
+    --ht-table-th-bg: #F8FAFC;
+
+    /* Radii */
+    --ht-radius-sm: 8px;
+    --ht-radius-md: 12px;
+    --ht-radius-lg: 16px;
+    --ht-radius-full: 9999px;
+
+    /* Shadows */
+    --ht-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --ht-shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.03);
+    --ht-shadow-md: 0 4px 8px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+    --ht-shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+    --ht-shadow-xl: 0 20px 30px -6px rgba(15, 23, 42, 0.12);
+
+    /* Transitions */
+    --ht-transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Tokens (System preference or data-theme="dark") */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --ht-bg: #0B1120;
+        --ht-card-bg: #1E293B;
+        --ht-card-border: #334155;
+        --ht-text: #F8FAFC;
+        --ht-text-muted: #CBD5E1;
+        --ht-input-border: #64748B;
+        --ht-input-bg: #0F172A;
+        --ht-input-text: #FFFFFF;
+        --ht-link: #38BDF8;
+        --ht-link-hover: #7DD3FC;
+        --ht-table-th-bg: #1E293B;
+    }
+}
+
+[data-theme="dark"] {
+    --ht-bg: #0B1120;
+    --ht-card-bg: #1E293B;
+    --ht-card-border: #334155;
+    --ht-text: #F8FAFC;
+    --ht-text-muted: #CBD5E1;
+    --ht-input-border: #64748B;
+    --ht-input-bg: #0F172A;
+    --ht-input-text: #FFFFFF;
+    --ht-link: #38BDF8;
+    --ht-link-hover: #7DD3FC;
+    --ht-table-th-bg: #1E293B;
+}
+
+/**************************************************************
+ * Typography & Base Resets
+ **************************************************************/
+
+html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ht-text);
+    background-color: var(--ht-bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .page-header {
+    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    color: var(--ht-text);
+    letter-spacing: -0.015em;
+}
+
+h1 { font-size: 1.85rem; }
+h2, .page-header { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.1rem; }
+h5 { font-size: 0.95rem; }
+
+a {
+    color: var(--ht-link);
+    text-decoration: none;
+    transition: var(--ht-transition);
+}
+
+a:hover {
+    color: var(--ht-link-hover);
+}
+
+/**************************************************************
+ * Navigation Bar
+ **************************************************************/
+
+.navbar {
+    background-color: var(--ht-primary) !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: var(--ht-transition);
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF !important;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 0.925rem;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: var(--ht-radius-sm);
+    transition: var(--ht-transition);
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.active-tab {
+    background-color: rgba(20, 184, 166, 0.25) !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+/* Modern Rounded Dropdowns */
+.dropdown-menu {
+    border-radius: var(--ht-radius-md);
+    border: 1px solid var(--ht-card-border);
+    background-color: var(--ht-card-bg);
+    box-shadow: var(--ht-shadow-lg);
+    padding: 0.5rem;
+    min-width: 14rem;
+    margin-top: 0.4rem;
+    animation: htDropdownFade 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes htDropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--ht-radius-sm);
+    color: var(--ht-text);
+    transition: var(--ht-transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: rgba(20, 184, 166, 0.1);
+    color: var(--ht-accent-hover);
+}
+
+.dropdown-header {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ht-text-muted);
+    padding: 0.5rem 0.85rem 0.25rem;
+}
+
+.dropdown-divider {
+    border-top: 1px solid var(--ht-card-border);
+    margin: 0.4rem 0;
+}
+
+/* Admin badge in navbar */
+.badge-admin {
+    background: linear-gradient(135deg, #F59E0B, #EA580C);
+    color: #FFFFFF !important;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--ht-radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/**************************************************************
+ * Cards & Panels
+ **************************************************************/
+
+.card {
+    background-color: var(--ht-card-bg);
+    border: 1px solid var(--ht-card-border);
+    border-radius: var(--ht-radius-lg);
+    box-shadow: var(--ht-shadow-sm);
+    transition: var(--ht-transition);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+}
+
+.card:hover {
+    box-shadow: var(--ht-shadow-md);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--ht-card-border);
+    padding: 1rem 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ht-text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-body {
+    padding: 1.25rem;
+    color: var(--ht-text);
+}
+
+.card-footer {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid var(--ht-card-border);
+    padding: 0.85rem 1.25rem;
+}
+
+/**************************************************************
+ * Buttons
+ **************************************************************/
+
+.btn {
+    border-radius: var(--ht-radius-sm);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    transition: var(--ht-transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ht-input-focus-ring) !important;
+}
+
+.btn-primary {
+    background-color: var(--ht-primary);
+    border-color: var(--ht-primary);
+    color: #FFFFFF !important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: var(--ht-primary-hover) !important;
+    border-color: var(--ht-primary-hover) !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 110, 0.25);
+    color: #FFFFFF !important;
+}
+
+.btn-success {
+    background-color: var(--ht-accent);
+    border-color: var(--ht-accent);
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:focus {
+    background-color: var(--ht-accent-hover) !important;
+    border-color: var(--ht-accent-hover) !important;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+    color: #FFFFFF !important;
+}
+
+.btn-outline-primary {
+    color: var(--ht-link);
+    border-color: var(--ht-link);
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--ht-primary);
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 110, 0.2);
+}
+
+.btn-outline-success, .btn-outline-teal {
+    color: var(--ht-accent);
+    border-color: var(--ht-accent);
+    background-color: transparent;
+}
+
+.btn-outline-success:hover, .btn-outline-teal:hover {
+    background-color: var(--ht-accent);
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+}
+
+.btn-danger {
+    background-color: var(--ht-danger);
+    border-color: var(--ht-danger);
+    color: #FFFFFF !important;
+}
+
+.btn-danger:hover {
+    background-color: #DC2626;
+    border-color: #DC2626;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+/**************************************************************
+ * Forms & Inputs (HIGH CONTRAST & READABLE EVERYWHERE)
+ **************************************************************/
+
+.form-control, .form-select,
+input[type="text"], input[type="email"], input[type="password"],
+input[type="number"], select, textarea {
+    border-radius: var(--ht-radius-sm);
+    border: 1.5px solid var(--ht-input-border) !important;
+    background-color: var(--ht-input-bg) !important;
+    color: var(--ht-input-text) !important;
+    padding: 0.65rem 0.95rem;
+    font-size: 0.95rem;
+    transition: var(--ht-transition);
+}
+
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: #94A3B8 !important;
+    opacity: 1 !important;
+}
+
+.form-control:focus, .form-select:focus,
+input:focus, select:focus, textarea:focus {
+    border-color: var(--ht-accent) !important;
+    outline: none;
+    box-shadow: 0 0 0 3px var(--ht-input-focus-ring) !important;
+    background-color: var(--ht-input-bg) !important;
+    color: var(--ht-input-text) !important;
+}
+
+/* Clear, bold, high-contrast labels */
+label, .form-label, .col-form-label {
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    color: var(--ht-text) !important;
+    margin-bottom: 0.35rem;
+    display: inline-block;
+}
+
+/* Clear readable help text and password requirement lists */
+.form-text, .help-block, .form-text *, form small, form ul, form ul li {
+    color: var(--ht-text-muted) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+}
+
+form ul {
+    padding-left: 1.25rem;
+    margin-top: 0.35rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-check-input {
+    border-radius: 4px;
+    border-color: var(--ht-input-border);
+    transition: var(--ht-transition);
+}
+
+.form-check-input:checked {
+    background-color: var(--ht-accent);
+    border-color: var(--ht-accent);
+}
+
+.input-group-text {
+    border-radius: var(--ht-radius-sm);
+    border: 1.5px solid var(--ht-input-border);
+    background-color: rgba(0, 0, 0, 0.03);
+    color: var(--ht-text-muted);
+}
+
+/**************************************************************
+ * Tables
+ **************************************************************/
+
+.table-responsive {
+    border-radius: var(--ht-radius-md);
+    border: 1px solid var(--ht-card-border);
+    background-color: var(--ht-card-bg);
+    box-shadow: var(--ht-shadow-xs);
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+}
+
+.table {
+    margin-bottom: 0;
+    color: var(--ht-text);
+    vertical-align: middle;
+}
+
+.table thead th {
+    background-color: var(--ht-table-th-bg);
+    color: var(--ht-text-muted);
+    font-size: 0.775rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1.5px solid var(--ht-card-border);
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+
+.table tbody td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--ht-card-border);
+    font-size: 0.9rem;
+    color: var(--ht-text);
+}
+
+.table-hover tbody tr:hover td {
+    background-color: rgba(20, 184, 166, 0.06);
+}
+
+/* DataTables elements */
+.dataTables_wrapper, .dt-container {
+    color: var(--ht-text) !important;
+}
+
+.dataTables_filter input, .dt-search input {
+    border: 1.5px solid var(--ht-input-border) !important;
+    background-color: var(--ht-input-bg) !important;
+    color: var(--ht-input-text) !important;
+    border-radius: var(--ht-radius-sm) !important;
+    padding: 0.4rem 0.75rem !important;
+}
+
+/**************************************************************
+ * Alerts / Toasts
+ **************************************************************/
+
+.alert {
+    border-radius: var(--ht-radius-md);
+    border: 1px solid transparent;
+    padding: 0.9rem 1.25rem;
+    box-shadow: var(--ht-shadow-sm);
+    font-size: 0.925rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.alert .close, .alert .btn-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.65;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--ht-transition);
+}
+
+.alert .close:hover, .alert .btn-close:hover {
+    opacity: 1;
+}
+
+.alert-success {
+    background-color: #ECFDF5;
+    border-color: #A7F3D0;
+    color: #065F46;
+}
+
+.alert-info {
+    background-color: #EFF6FF;
+    border-color: #BFDBFE;
+    color: #1E40AF;
+}
+
+.alert-warning {
+    background-color: #FFFBEB;
+    border-color: #FDE68A;
+    color: #92400E;
+}
+
+.alert-danger {
+    background-color: #FEF2F2;
+    border-color: #FECACA;
+    color: #991B1B;
+}
+
+/**************************************************************
+ * Badges & Breadcrumbs
+ **************************************************************/
+
+.badge {
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35em 0.7em;
+    border-radius: var(--ht-radius-full);
+    letter-spacing: 0.02em;
+}
+
+.breadcrumb {
+    background-color: transparent;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    font-size: 1.1rem;
+    line-height: 1;
+    vertical-align: middle;
+    color: var(--ht-text-muted);
+}
+
+.breadcrumb-item a {
+    color: var(--ht-text-muted);
+}
+
+.breadcrumb-item.active {
+    color: var(--ht-text);
+    font-weight: 600;
+}
+
+/**************************************************************
+ * Modals
+ **************************************************************/
+
+.modal-content {
+    border-radius: var(--ht-radius-lg);
+    border: 1px solid var(--ht-card-border);
+    box-shadow: var(--ht-shadow-xl);
+    background-color: var(--ht-card-bg);
+    color: var(--ht-text);
+    overflow: hidden;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--ht-card-border);
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    color: var(--ht-text);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--ht-card-border);
+    padding: 1rem 1.5rem;
+}
+
+/**************************************************************
+ * Empty States
+ **************************************************************/
+
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 1.5rem;
+    background-color: var(--ht-card-bg);
+    border-radius: var(--ht-radius-lg);
+    border: 2px dashed var(--ht-card-border);
+    margin: 1.5rem 0;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    color: #94A3B8;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--ht-text);
+}
+
+.empty-state-text {
+    color: var(--ht-text-muted);
+    max-width: 420px;
+    margin: 0 auto 1.5rem;
+    font-size: 0.95rem;
+}
+
+/**************************************************************
+ * Dashboard Welcome Header
+ **************************************************************/
+
+.ht-welcome-banner {
+    background: linear-gradient(135deg, #1E3A6E 0%, #162C54 60%, #0F766E 100%);
+    color: #FFFFFF;
+    border-radius: var(--ht-radius-lg);
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.75rem;
+    box-shadow: var(--ht-shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.ht-welcome-banner h1, .ht-welcome-banner h2 {
+    color: #FFFFFF !important;
+    margin-bottom: 0.25rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.ht-welcome-banner p {
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/**************************************************************
+ * Auth Cards & Headings
+ **************************************************************/
+
+.auth-card-title {
+    color: var(--ht-text) !important;
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+.auth-card-subtitle {
+    color: var(--ht-text-muted) !important;
+    font-size: 0.9rem;
+}
+
+#main-sidebar h4, .sidebar h4 {
+    color: var(--ht-text) !important;
+    font-weight: 600 !important;
+}
+
+#main-sidebar p, .sidebar p {
+    color: var(--ht-text-muted) !important;
+}
+
+#main-sidebar a, .sidebar a {
+    color: var(--ht-link) !important;
+    font-weight: 600 !important;
+}
+
+#main-sidebar a:hover, .sidebar a:hover {
+    color: var(--ht-link-hover) !important;
+    text-decoration: underline !important;
+}
+
+/**************************************************************
+ * Universal Brand & Navbar Styling (HIGH VISIBILITY)
+ **************************************************************/
+
+.navbar-brand,
+.navbar-brand:hover,
+.navbar-brand:focus,
+.navbar-brand:visited,
+header.landing-header .navbar-brand,
+header.landing-header .navbar-brand:hover,
+header.landing-header .navbar-brand:focus {
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.brand-healthyfy,
+.navbar-brand .brand-healthyfy,
+.navbar-brand span.brand-healthyfy,
+header.landing-header .navbar-brand .brand-healthyfy,
+header.landing-header .navbar-brand span.brand-healthyfy {
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    letter-spacing: 0.5px !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.brand-tracker,
+.navbar-brand .brand-tracker,
+.navbar-brand span.brand-tracker,
+header.landing-header .navbar-brand .brand-tracker,
+header.landing-header .navbar-brand span.brand-tracker {
+    color: #2DD4BF !important; /* Vivid Electric Turquoise */
+    font-weight: 800 !important;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    letter-spacing: 0.8px !important;
+    text-shadow: 0 1px 4px rgba(45, 212, 191, 0.45);
+}
+
+/**************************************************************
+ * Landing Page Colors (GUARANTEED HIGH CONTRAST)
+ **************************************************************/
+
+.text-dark-blue {
+    color: #163665 !important;
+}
+
+header.landing-header section h1,
+header.landing-header section h2,
+header.landing-header .text-dark-blue {
+    color: #163665 !important;
+}
+
+header.landing-header section p,
+header.landing-header section .lead {
+    color: #334155 !important;
+}
+
+header.landing-header section .text-muted {
+    color: #475569 !important;
+}
+
+/**************************************************************
+ * REACT COMPONENT TEXT VISIBILITY FIX
+ * The React components render with light #f8f8f8 backgrounds
+ * but inherit white text from dark-mode global CSS variables.
+ * Force dark text on all light-background React-rendered areas.
+ **************************************************************/
+
+/* Target all React CSS-module roots (obfuscated class pattern) */
+[class*="_root_"],
+[class*="_root_"] *:not(button):not(.btn):not(svg):not(path) {
+    color: #1E293B !important;
+}
+
+[class*="_root_"] a,
+[class*="_root_"] a * {
+    color: #1E3A6E !important;
+}
+
+[class*="_root_"] a:hover,
+[class*="_root_"] a:hover * {
+    color: #0D9488 !important;
+}
+
+/* Slot/Day headers inside React cards */
+[class*="_slot_"] h3,
+[class*="_slot_"] h4,
+[class*="_slot_"] p,
+[class*="_slot_"] span,
+[class*="_slot_"] div,
+[class*="_day_"] h3,
+[class*="_day_"] h4,
+[class*="_day_"] p,
+[class*="_day_"] span {
+    color: #1E293B !important;
+}
+
+/* Exercise name / detail rows inside React */
+[class*="_exercise_"] span,
+[class*="_exercise_"] p,
+[class*="_exercise_"] div,
+[class*="_exercise_"] h4,
+[class*="_exercise_"] h5,
+[class*="_detail_"] span,
+[class*="_detail_"] p,
+[class*="_detail_"] div {
+    color: #1E293B !important;
+}
+
+/* Any element that has a white or light-gray inline background (React grid items) */
+.react-grid-item,
+.react-grid-item * {
+    color: #1E293B !important;
+}
+
+/* General override: light-background widgets used across pages */
+.bg-white,
+.bg-light,
+.bg-body,
+.card-body *:not(.badge):not(.btn):not(.alert):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    color: var(--ht-text);
+}
+
+/**************************************************************
+ * UNIVERSAL TEXT CONTRAST — ensure EVERY page reads clearly
+ **************************************************************/
+
+/* All standard text on the dark page background */
+body > #main p,
+body > #main li,
+body > #main td,
+body > #main th,
+body > #main span:not(.badge):not(.brand-healthyfy):not(.brand-tracker),
+body > #main label,
+body > #main dt,
+body > #main dd {
+    color: var(--ht-text);
+}
+
+/* Force visible text inside cards */
+.card .card-title,
+.card .card-text,
+.card .card-body h1,
+.card .card-body h2,
+.card .card-body h3,
+.card .card-body h4,
+.card .card-body h5,
+.card .card-body p,
+.card .card-body li,
+.card .card-body span:not(.badge),
+.card .card-body label,
+.card .card-body td,
+.card .card-body th {
+    color: var(--ht-text) !important;
+}
+
+/* Panel / list-group text */
+.list-group-item,
+.list-group-item * {
+    color: var(--ht-text) !important;
+}
+
+.list-group-item-action:hover {
+    background-color: rgba(20, 184, 166, 0.08) !important;
+}
+
+/* Table cells always readable */
+table td,
+table th,
+.table td,
+.table th {
+    color: var(--ht-text) !important;
+}
+
+/* Tab panels */
+.tab-pane p,
+.tab-pane span,
+.tab-pane li,
+.tab-pane label,
+.tab-pane td {
+    color: var(--ht-text) !important;
+}
+
+/* Accordion */
+.accordion-body,
+.accordion-body *:not(.badge):not(.btn) {
+    color: var(--ht-text) !important;
+}
+
+.accordion-button {
+    color: var(--ht-text) !important;
+    background-color: var(--ht-card-bg) !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--ht-accent) !important;
+    background-color: rgba(20, 184, 166, 0.06) !important;
+}
+
+/* Pagination */
+.page-link {
+    color: var(--ht-link) !important;
+    background-color: var(--ht-card-bg) !important;
+    border-color: var(--ht-card-border) !important;
+}
+
+.page-item.active .page-link {
+    background-color: var(--ht-primary) !important;
+    border-color: var(--ht-primary) !important;
+    color: #FFFFFF !important;
+}
+
+/* Small utility text */
+small, .small, .text-muted {
+    color: var(--ht-text-muted) !important;
+}
+
+/* Code blocks */
+code, pre {
+    color: var(--ht-accent) !important;
+    background-color: rgba(20, 184, 166, 0.08) !important;
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+}
+
+/**************************************************************
+ * Light-Background Card Override (force white bg + dark text)
+ * Used for React panels, overview cards, etc.
+ **************************************************************/
+
+/* When the React component forces a light #f8f8f8 background,
+   ensure child text is always dark (#1E293B) */
+div[style*="background-color: rgb(248, 248, 248)"],
+div[style*="background-color:#f8f8f8"],
+div[style*="background: #f8f8f8"],
+div[style*="background-color: #f8f8f8"] {
+    color: #1E293B !important;
+}
+
+div[style*="background-color: rgb(248, 248, 248)"] *,
+div[style*="background-color:#f8f8f8"] *,
+div[style*="background: #f8f8f8"] *,
+div[style*="background-color: #f8f8f8"] * {
+    color: #1E293B !important;
+}
+
+/* White background elements should always have dark text */
+div[style*="background-color: white"],
+div[style*="background-color: #fff"],
+div[style*="background-color: #ffffff"],
+div[style*="background-color: rgb(255, 255, 255)"] {
+    color: #1E293B !important;
+}
+
+div[style*="background-color: white"] *,
+div[style*="background-color: #fff"] *,
+div[style*="background-color: #ffffff"] *,
+div[style*="background-color: rgb(255, 255, 255)"] * {
+    color: #1E293B !important;
+}

@@ -1,0 +1,90 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | HEALTHYFY TRACKER Admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <img src="{% static 'images/logos/logo-bg-white.png' %}" style="height: 28px; vertical-align: middle; margin-right: 8px; border-radius: 4px;" alt="HEALTHYFY TRACKER">
+        <span style="color: #FFFFFF !important; font-weight: 800;">HEALTHYFY</span> <span style="color: #2DD4BF !important; font-weight: 800;">TRACKER</span> <span style="font-size: 0.72rem; background: #14B8A6; color: #fff; padding: 2px 7px; border-radius: 12px; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">Admin</span>
+    </a>
+</h1>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary: #1E3A6E !important;
+        --secondary: #162C54 !important;
+        --accent: #14B8A6 !important;
+        --primary-fg: #FFFFFF !important;
+        --body-fg: #1E293B !important;
+        --body-bg: #F4F6FA !important;
+        --header-color: #FFFFFF !important;
+        --header-branding-color: #FFFFFF !important;
+        --header-bg: #1E3A6E !important;
+        --header-link-color: #FFFFFF !important;
+        --breadcrumbs-fg: #CBD5E1 !important;
+        --breadcrumbs-link-fg: #FFFFFF !important;
+        --breadcrumbs-bg: #162C54 !important;
+    }
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background-color: #F4F6FA !important;
+        color: #1E293B !important;
+    }
+    #header {
+        background: #1E3A6E !important;
+        color: #FFFFFF !important;
+        padding: 12px 24px !important;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+    }
+    #branding h1 {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+    }
+    .breadcrumbs {
+        background: #162C54 !important;
+        padding: 10px 24px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    .module, .card, div.content {
+        border-radius: 12px !important;
+        box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+        border: 1px solid #E2E8F0 !important;
+        background: #FFFFFF !important;
+    }
+    table {
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+    thead th {
+        background: #F8FAFC !important;
+        color: #475569 !important;
+        font-weight: 600 !important;
+    }
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: #1E3A6E !important;
+        border-radius: 8px !important;
+        font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+        border: none !important;
+        color: #FFFFFF !important;
+        padding: 8px 16px !important;
+    }
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        background: #14B8A6 !important;
+    }
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background: #14B8A6 !important;
+    }
+    .button.default:hover, input[type=submit].default:hover {
+        background: #0D9488 !important;
+    }
+</style>
+{% endblock %}

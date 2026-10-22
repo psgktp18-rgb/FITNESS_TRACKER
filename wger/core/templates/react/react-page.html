@@ -1,0 +1,56 @@
+{% extends "base_wide.html" %}
+{% load i18n static wger_extras cache django_bootstrap_breadcrumbs %}
+
+
+{#           #}
+{# Opengraph #}
+{#           #}
+{% block opengraph %}
+    {{ block.super }}
+{% endblock %}
+{% block opengraphimages %}
+{% endblock %}
+
+
+{#       #}
+{# Title #}
+{#       #}
+{% block title %}{% endblock %}
+
+
+{#        #}
+{# Header #}
+{#        #}
+{% block header %}
+{% endblock %}
+
+
+{#         #}
+{# Content #}
+{#         #}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="ht-welcome-banner">
+            <div>
+                <h2 class="mb-1 text-white">{% translate "Welcome back" %}, {{ user.first_name|default:user.username }}! 👋</h2>
+                <p class="mb-0 text-white-50">{% translate "Track your workouts, log nutrition, and monitor your progress with HEALTHYFY TRACKER." %}</p>
+            </div>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+                <a href="{% url 'manager:routine:overview' %}" class="btn btn-light text-primary fw-semibold shadow-sm">
+                    <span class="{% fa_class 'dumbbell' %}"></span> {% translate "Training" %}
+                </a>
+                <a href="{% url 'weight:overview' %}" class="btn btn-outline-light fw-semibold">
+                    <span class="{% fa_class 'weight' %}"></span> {% translate "Log weight" %}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+    <div id="{{ div_id }}"></div>
+{% endblock %}
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+{% endblock %}
